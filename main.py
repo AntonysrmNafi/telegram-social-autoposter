@@ -1,4 +1,4 @@
-from telegram.ext import ApplicationBuilder, CommandHandler
+from telegram.ext import Application, CommandHandler
 from config.settings import BOT_TOKEN
 from bot.handlers import (
     help_handler,
@@ -9,7 +9,7 @@ from bot.handlers import (
 )
 
 def main():
-    app = ApplicationBuilder().token(BOT_TOKEN).build()
+    app = Application.builder().token(BOT_TOKEN).build()
 
     app.add_handler(CommandHandler("help", help_handler))
     app.add_handler(CommandHandler("x", x_handler))
@@ -17,7 +17,8 @@ def main():
     app.add_handler(CommandHandler("facebook", facebook_handler))
     app.add_handler(CommandHandler("all", all_handler))
 
-    app.run_polling()
+    print("🤖 Bot started...")
+    app.run_polling(allowed_updates=["message"])
 
 if __name__ == "__main__":
     main()
